@@ -1,0 +1,25 @@
+*{
+	padding:0;
+	margin:0;
+	width:0 auto;
+	
+}
+
+.date {
+	color: blue;
+	text-align:center;
+	padding-top:500px;
+}
+
+.time {
+	color: green;
+	text-align:center;
+	padding-top:500px;
+}
+
+.wrapper{
+	padding: 400px 200px;
+	
+	display:flex;
+	justify-content:space-between;
+}
