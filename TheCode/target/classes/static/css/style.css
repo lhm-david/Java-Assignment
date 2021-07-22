@@ -1,0 +1,15 @@
+.wrapper{
+	text-align:center;
+	padding-top:200px;
+}
+
+.errors{
+	color: red;
+}
+
+.code{
+	text-align:center;
+	padding-top:200px;
+	width:200px;
+	margin: 0 auto;
+}
