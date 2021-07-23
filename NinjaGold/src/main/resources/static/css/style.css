@@ -1,0 +1,34 @@
+.red{
+	color:red;
+}
+
+.green{
+	color:green;
+}
+
+.game{
+	display: flex;
+	justify-content:space-between;
+	margin: 0 auto;
+	width: 800px;
+	
+}
+
+.subclass{
+	border: 2px solid black;
+	padding: 10px;
+	text-align:center;
+}
+
+.score{
+	margin-left: 130px;
+}
+
+.showact{
+	margin-left: 130px;
+}
+
+.end{
+	text-align:center;
+	padding-top:100px;
+}
