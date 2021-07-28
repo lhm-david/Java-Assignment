@@ -2,17 +2,22 @@ package com.codingdojo.mvc.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.codingdojo.mvc.models.Book;
 import com.codingdojo.mvc.services.MvcServices;
 
-@RestController
+@Controller
 public class MainController {
 	private MvcServices service;
 	public MainController(MvcServices service) {
@@ -20,14 +25,27 @@ public class MainController {
 	}
 
 	//get all books
-	@GetMapping("/")
-	public List<Book> index(){
-		return this.service.getAll();
+	@RequestMapping("/")
+	public String index(Model viewModel){
+		List<Book> books = service.getAll();
+		viewModel.addAttribute("book", books);
+		return "index.jsp";
 	}
 	
-	@PostMapping("/create")
-	public Book create(Book book) {
-		return this.service.create(book);
+	@RequestMapping("/newbook")
+	public String newBook(@ModelAttribute("book") Book book) {
+		return "newbook.jsp";
+	}
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public String create(@Valid @ModelAttribute ("book") Book book, BindingResult result) {
+		if (result.hasErrors()) {
+			return "newbook.jsp";
+		}
+		else {
+			service.create(book);
+			return "redirect:/";
+		}
+		
 	}
 	
 	@GetMapping("/{id}")
@@ -35,9 +53,10 @@ public class MainController {
 		return this.service.getOne(id);
 	}
 	
-	@DeleteMapping("/{id}/delete")
-	public void delete(@PathVariable Long id) {
-		this.service.deleteById(id);
+	@RequestMapping(value="/{id}/delete", method=RequestMethod.DELETE)
+	public String delete(@PathVariable("id") Long id) {
+		service.deleteById(id);
+		return "redirect:/";
 	}
 	
 	@PutMapping("/{id}/update")

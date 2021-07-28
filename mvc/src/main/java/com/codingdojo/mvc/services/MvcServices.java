@@ -9,33 +9,33 @@ import com.codingdojo.mvc.repositories.BookRepositories;
 
 @Service
 public class MvcServices {
-	private BookRepositories repo;
+	private final BookRepositories repository;
 	public MvcServices(BookRepositories repo) {
-		this.repo = repo;
+		this.repository = repo;
 	}
 	public List<Book>getAll(){
-		return this.repo.findAll();
+		return this.repository.findAll();
 	}
 	
 	//create a book
 	public Book create(Book book) {
-		return this.repo.save(book);
+		return this.repository.save(book);
 	}
 	
 	//delete a book
 	public void deleteById(Long id) {
-		this.repo.deleteById(id);
+		this.repository.deleteById(id);
 	}
 	
 	//update a book
 	public Book update(Book book) {
-		return this.repo.save(book);
+		return this.repository.save(book);
 	}
 	
 	//get one book (by id)
 	public Book getOne(Long id) {
 		// if no books are found with provided id, return null
-		return this.repo.findById(id).orElse(null);
+		return this.repository.findById(id).orElse(null);
 		//Optional<Book> optionalBook = bookRepository.findById(id);
         //if(optionalBook.isPresent()) {
         //    return optionalBook.get();
